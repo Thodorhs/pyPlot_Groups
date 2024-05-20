@@ -41,9 +41,10 @@ def plot_data(data):
 
     n_groups = len(groups)
     index = np.arange(n_groups) * (1 + config.group_spacing_factor)  # Adjust the index array for spacing
-
-    fig, ax = plt.subplots(figsize=config.halffigsize)
-
+    figsize=config.quartfigsize
+    fig, ax = plt.subplots(figsize=config.quartfigsize)
+    if figsize == config.quartfigsize:
+        scale_fonts_legends=6.75
     part_names = ['MINOR_GC', 'MAJOR_GC', 'OTHER']
 
     for group_index, group in enumerate(groups):
@@ -62,8 +63,8 @@ def plot_data(data):
             nvmeOF_bottom += nvmeOF_value
 
         # Add labels below each bar
-        plt.text(index[group_index], config.bar_names_loc, 'Loc', ha='center', fontsize=config.fontsize-3)
-        plt.text(index[group_index] + config.bar_width, config.bar_names_loc, 'OF', ha='center', fontsize=config.fontsize-3)
+        plt.text(index[group_index], config.bar_names_loc, 'Loc', ha='center', fontsize=config.fontsize-scale_fonts_legends)
+        plt.text(index[group_index] + config.bar_width, config.bar_names_loc, 'OF', ha='center', fontsize=config.fontsize-scale_fonts_legends)
     
     plt.xlabel(data['x_label'], fontsize=config.fontsize, fontweight='bold')
     plt.ylabel(data['y_label'] + " (minutes)", fontsize=config.fontsize, fontweight='bold')
@@ -73,16 +74,16 @@ def plot_data(data):
 
     # Adjust the position of the workload names (group names)
     ax.set_xticks(index + config.bar_width / 2)
-    ax.set_xticklabels(groups, fontsize=config.fontsize-1)
+    ax.set_xticklabels(groups, fontsize=config.fontsize-scale_fonts_legends+3)
     for tick in ax.get_xticklabels():
         tick.set_y(config.workload_name_pos)  # Lower the position of the workload names
 
     # Add legend
     legend_elements = [plt.Rectangle((0, 0), 1, 1, color=config.colors[i], edgecolor='w') for i, part_name in enumerate(part_names)]
-    ax.legend(legend_elements, part_names, fontsize=config.fontsize-3, loc='upper center', bbox_to_anchor=config.bbox_to_anchor, ncol=len(part_names), handleheight=1, handlelength=1, labelspacing=-50)
+    ax.legend(legend_elements, part_names, fontsize=config.fontsize-scale_fonts_legends, loc='upper center', bbox_to_anchor=config.bbox_to_anchor, ncol=len(part_names), handleheight=1, handlelength=1, labelspacing=-50)
     plt.tight_layout()
     plt.subplots_adjust(bottom=0.25)  # Adjust bottom margin to add space for x-axis labels
-    plt.savefig('plot.png')
+    plt.savefig('plot.png',bbox_inches='tight', dpi=config.dpi)
 
 def main(filename):
     data = parse_data(filename)

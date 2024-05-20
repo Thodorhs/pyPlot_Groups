@@ -22,6 +22,7 @@ This script is designed to read data from a file, parse it, and generate a bar p
 - `edgewidth = 1.2`: Width of the edges of bars or other shapes, set to 1.2 points wide.
 - `edgecolor = 'k'`: Color of the edges of bars or other shapes, set to black (`'k'`).
 - `markersize = 12`: Size of the markers in the plot, set to 12 points.
+- `dpi=450`        : Quality of the plot (Dots Per Inches).
 - `bar_width = 0.5`: Width of the bars in a bar plot, set to 0.5 units wide.
 - `workload_name_pos = -0.05`: Position adjustment for workload names, moving them slightly downward by 0.05 units.
 - `bbox_to_anchor = (0.12, -0.2)`: Position of the legend, placing it at the coordinates (0.12, -0.2) relative to the axes.

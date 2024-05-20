@@ -25,11 +25,13 @@ edgewidth    = 1.2                          # Edge width
 edgecolor    = 'k'                          # Edgecolor = Black
 markersize   = 12                           # Marker size
 bar_width    = 0.5                          # Bar width
-workload_name_pos = -0.05                   # Lower the position of the workload names
-bbox_to_anchor = (0.12, -0.2)               # Legend position
-bar_names_loc = -22                         # Adjusted the position of the bar names
 colors = ['#444444', '#888888', '#cccccc']  # Adjusted to three colors Black and white color palette
-group_spacing_factor = 0.5                  # Adjust this factor to control the spacing between groups
+dpi=450                                     # Quality of the plot (Dots Per Inches).
+
+workload_name_pos = -0.05                   # Lower the position of the workload names
+bbox_to_anchor = (0.5, -0.27)               # Legend position
+bar_names_loc = -22                         # Adjusted the position of the bar names
+group_spacing_factor = 0.25                 # Adjust this factor to control the spacing between groups
 
 # Color Blind pallete
 color        =   ['#3399ff',                # Blue
