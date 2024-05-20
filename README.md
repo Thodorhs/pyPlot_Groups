@@ -11,16 +11,24 @@ This script is designed to read data from a file, parse it, and generate a bar p
 
 ## Script Configuration
 
-- `figsize`: Size of the figure.
-- `fontsize`: Font size used in the plot.
-- `linewidth`: Width of the lines.
-- `edgewidth`: Width of the bar edges.
-- `edgecolor`: Color of the bar edges.
-- `bar_width`: Width of the bars.
-- `workload_name_pos`: Position adjustment for workload names.
-- `bbox_to_anchor`: Position of the legend.
-- `bar_names_loc`: Position of the bar labels (`local`, `nvmeOF`).
-- `colors`: Black and white color palette for the parts of the bars.
+- `fullfigsize = (13, 2)`: Full figure size, setting the figure to be 13 inches wide and 2 inches tall.
+- `halffigsize = (7, 3)`: Half figure size, setting the figure to be 7 inches wide and 3 inches tall.
+- `thirdfigsize = (5, 3)`: One third figure size, setting the figure to be 5 inches wide and 3 inches tall.
+- `quartfigsize = (3.25, 3)`: One fourth figure size, setting the figure to be 3.25 inches wide and 3 inches tall.
+- `eightfigsize = (1.625, 1.6)`: One eighth figure size, setting the figure to be 1.625 inches wide and 1.6 inches tall.
+- `fontsize = 12`: Font size used for text elements in the plot.
+- `linewidth = 3`: Width of the main lines in the plot, set to 3 points wide.
+- `linewidth_2 = 0.6`: Secondary line width for different lines in the plot, set to 0.6 points wide.
+- `edgewidth = 1.2`: Width of the edges of bars or other shapes, set to 1.2 points wide.
+- `edgecolor = 'k'`: Color of the edges of bars or other shapes, set to black (`'k'`).
+- `markersize = 12`: Size of the markers in the plot, set to 12 points.
+- `bar_width = 0.5`: Width of the bars in a bar plot, set to 0.5 units wide.
+- `workload_name_pos = -0.05`: Position adjustment for workload names, moving them slightly downward by 0.05 units.
+- `bbox_to_anchor = (0.12, -0.2)`: Position of the legend, placing it at the coordinates (0.12, -0.2) relative to the axes.
+- `bar_names_loc = -22`: Position adjustment for bar labels such as `local` and `nvmeOF`, moving them to the position -22.
+- `colors = ['#444444', '#888888', '#cccccc']`: Black and white color palette for the parts of the bars, using shades of gray.
+- `group_spacing_factor = 0.5`: Factor to control the spacing between groups in a grouped bar plot, set to 0.5 units.
+
 
 ## Data File (`data.txt`)
 
@@ -57,7 +65,7 @@ The script will convert these values from seconds to minutes before plotting.
 
 ## Usage
 
-1. **Prepare your `data.txt` file** following the format described above.
+1. **Prepare your `data.txt` file** following the format described above. (you can optionaly chose diferent configuration from the `config.py`).
 
 2. **Run the script**: ```python3 plot_data.py ```
 

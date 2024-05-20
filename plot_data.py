@@ -1,23 +1,12 @@
 import matplotlib.pyplot as plt
 import numpy as np
-
-# Configuration settings
-figsize = (17, 8.5)  # Adjust the figure size to be more balanced
-fontsize = 12 # Adjusted the font size for better readability
-linewidth = 3 # Adjusted the line width for better visibility
-edgewidth = 1.2 # Adjusted the edge width for better visibility
-edgecolor = 'k'
-bar_width = 0.45  # Adjusted bar width for better spacing
-workload_name_pos = -0.03  # Lower the position of the workload names
-bbox_to_anchor=(0.5, -0.15) # Adjusted the position of the legend
-bar_names_loc = -8.4  # Adjusted the position of the bar names
-colors = ['#444444', '#888888', '#cccccc']  # Adjusted to three colors Black and white color palette
+import config
 
 # Function to parse the data from the file
 def parse_data(filename):
     with open(filename, 'r') as file:
         lines = file.readlines()
-    
+
     data = {}
     for line in lines:
         line = line.strip()
@@ -49,12 +38,12 @@ def plot_data(data):
     groups.remove('title')
     groups.remove('y_label')
     groups.remove('x_label')
-    
+
     n_groups = len(groups)
-    index = np.arange(n_groups)
-    
-    fig, ax = plt.subplots(figsize=figsize)
-    
+    index = np.arange(n_groups) * (1 + config.group_spacing_factor)  # Adjust the index array for spacing
+
+    fig, ax = plt.subplots(figsize=config.halffigsize)
+
     part_names = ['MINOR_GC', 'MAJOR_GC', 'OTHER']
 
     for group_index, group in enumerate(groups):
@@ -66,36 +55,34 @@ def plot_data(data):
             local_value = data[group]['local'][part_name]
             nvmeOF_value = data[group]['nvmeOF'][part_name]
 
-            plt.bar(group_index, local_value, bar_width, bottom=local_bottom, color=colors[i], edgecolor=edgecolor, linewidth=edgewidth)
-            plt.bar(group_index + bar_width, nvmeOF_value, bar_width, bottom=nvmeOF_bottom, color=colors[i], edgecolor=edgecolor, linewidth=edgewidth)
+            plt.bar(index[group_index], local_value, config.bar_width, bottom=local_bottom, color=config.colors[i], edgecolor=config.edgecolor, linewidth=config.linewidth_2)
+            plt.bar(index[group_index] + config.bar_width, nvmeOF_value, config.bar_width, bottom=nvmeOF_bottom, color=config.colors[i], edgecolor=config.edgecolor, linewidth=config.linewidth_2)
 
             local_bottom += local_value
             nvmeOF_bottom += nvmeOF_value
 
         # Add labels below each bar
-        plt.text(group_index, bar_names_loc, 'local', ha='center', fontsize=fontsize)
-        plt.text(group_index + bar_width, bar_names_loc, 'nvmeOF', ha='center', fontsize=fontsize)
+        plt.text(index[group_index], config.bar_names_loc, 'Loc', ha='center', fontsize=config.fontsize-3)
+        plt.text(index[group_index] + config.bar_width, config.bar_names_loc, 'OF', ha='center', fontsize=config.fontsize-3)
     
-    plt.xlabel(data['x_label'], fontsize=fontsize, fontweight='bold')  
-    plt.ylabel(data['y_label'] + " (minutes)", fontsize=fontsize, fontweight='bold')  
-    plt.title(data['title'], fontsize=fontsize, fontweight='bold')  
-    plt.xticks(index + bar_width / 2, groups, fontsize=fontsize, rotation=0) 
-    plt.yticks(fontsize=fontsize)
-    
+    plt.xlabel(data['x_label'], fontsize=config.fontsize, fontweight='bold')
+    plt.ylabel(data['y_label'] + " (minutes)", fontsize=config.fontsize, fontweight='bold')
+    plt.title(data['title'], fontsize=config.fontsize, fontweight='bold')
+    plt.xticks(index + config.bar_width / 2, groups, fontsize=config.fontsize, rotation=0)
+    plt.yticks(fontsize=config.fontsize)
+
     # Adjust the position of the workload names (group names)
-    ax.set_xticks(index + bar_width / 2)
-    ax.set_xticklabels(groups, fontsize=fontsize)
+    ax.set_xticks(index + config.bar_width / 2)
+    ax.set_xticklabels(groups, fontsize=config.fontsize-1)
     for tick in ax.get_xticklabels():
-        tick.set_y(workload_name_pos)  # Lower the position of the workload names
+        tick.set_y(config.workload_name_pos)  # Lower the position of the workload names
 
     # Add legend
-    legend_elements = [plt.Rectangle((0, 0), 1, 1, color=colors[i], edgecolor='w') for i, part_name in enumerate(part_names)]
-    ax.legend(legend_elements, part_names, fontsize=fontsize, loc='upper center', bbox_to_anchor=bbox_to_anchor, ncol=len(part_names))  # Lowered the legend
-
+    legend_elements = [plt.Rectangle((0, 0), 1, 1, color=config.colors[i], edgecolor='w') for i, part_name in enumerate(part_names)]
+    ax.legend(legend_elements, part_names, fontsize=config.fontsize-3, loc='upper center', bbox_to_anchor=config.bbox_to_anchor, ncol=len(part_names), handleheight=1, handlelength=1, labelspacing=-50)
     plt.tight_layout()
     plt.subplots_adjust(bottom=0.25)  # Adjust bottom margin to add space for x-axis labels
-    plt.savefig('plot.png') 
-
+    plt.savefig('plot.png')
 
 def main(filename):
     data = parse_data(filename)
