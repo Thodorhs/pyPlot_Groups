@@ -1,5 +1,5 @@
 # pyPlot_Groups
-Python scrypt to bar plot 2 groups and break each bar to 3 parts.
+Python scrypt to bar plot groups (each group with 2 bars one for local and one for nvmeOF) and break each bar to 3 parts.
 
 ## Example Plot
 
