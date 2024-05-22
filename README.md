@@ -7,7 +7,7 @@ Python scrypt to bar plot groups (each group with 2 bars one for local and one f
 
 ## Overview
 
-This script is designed to read data from a file, parse it, and generate a bar plot. Each group in the dataset will have two bars: one for `local` and one for `nvmeOF`. Each bar is visually broken down by `MINOR_GC`, `MAJOR_GC`, and `OTHER` parts. The script automatically converts times from seconds to minutes for readability.
+This script is designed to read data from a file, parse it, and generate a bar plot. Each group in the dataset will have two bars: one for `local` and one for `nvmeOF`. Each bar is visually broken down by `MINOR_GC`, `MAJOR_GC`, and `OTHER` parts. The script automatically converts times from seconds to minutes for readability. The script also saves the plot in pdf format ready for LaTex. 
 
 ## Script Configuration
 
@@ -36,7 +36,6 @@ This script is designed to read data from a file, parse it, and generate a bar p
 The data file should contain information about the plot in a specific format. Below is a sample `data.txt` file and its explanation:
 
 ```
-title=Performance Comparison
 x_l=Workloads
 y_l=Time
 group1=Workload A
@@ -52,8 +51,6 @@ part4=250;350
 ```
 
 ### Explanation
-
-- `title`: Title of the plot.
 - `x_l`: Label for the x-axis.
 - `y_l`: Label for the y-axis.
 - `groupN`: Name of the workload or group, where `N` is a number starting from 1.
@@ -68,8 +65,8 @@ The script will convert these values from seconds to minutes before plotting.
 
 1. **Prepare your `data.txt` file** following the format described above. (you can optionaly chose diferent configuration from the `config.py`).
 
-2. **Run the script**: ```python3 plot_data.py ```
+2. **Run the script**: ```./run.sh ```
 
-3. The plot will be saved as `plot.png` in the same directory.
+3. The plot will be saved as `plot-crop.pdf` in the same directory.
 
 

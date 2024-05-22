@@ -1,4 +1,3 @@
-title=Spark Benchmarks
 y_l=Execution Time
 x_l=Workloads
 
